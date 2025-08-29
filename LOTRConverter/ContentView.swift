@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showExchangeScreen = false
+    @State var leftText = ""
+    @State var rightText = ""
+    
     var body: some View {
         ZStack {
             Image(.background).resizable().ignoresSafeArea()
@@ -17,24 +20,36 @@ struct ContentView: View {
                 Image(.prancingpony).resizable().scaledToFit().frame(height: 200)
                 VStack {
                     HStack {
-                        HStack {
-                            Image(.silverpiece)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 48)
-                            Text ("Silver Price").foregroundStyle(.white)
+                        VStack{
+                            HStack {
+                                Image(.silverpiece)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 48)
+                                Text ("Silver Price").foregroundStyle(.white)
+                            }
+                            TextField("Ammount", text: $leftText)
+                                .textFieldStyle(.roundedBorder)
                         }
                         Image(systemName: "equal")
                             .foregroundColor(.white)
                             .font(.largeTitle).symbolEffect(.pulse)
-                        HStack {
-                            Image(.goldpiece)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 48)
-                            Text ("goldpiece").foregroundStyle(.white)
+                        VStack{
+                            HStack {
+                                Image(.goldpiece)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 48)
+                                Text ("goldpiece").foregroundStyle(.white)
+                            }
+                            TextField("Ammount", text: $rightText)
+                                .textFieldStyle(.roundedBorder)
+                                .multilineTextAlignment(.trailing)
                         }
                     }
+                    .padding()
+                    .background(.black.opacity(0.5))
+                    .clipShape(.capsule)
                     Spacer()
                     HStack {
                         Spacer()
