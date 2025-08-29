@@ -44,7 +44,7 @@ struct ContentView: View {
                             Image(systemName: "info.circle.fill").foregroundColor(.white)
                                 .font(.largeTitle).symbolEffect(.pulse)
                         }
-                        .padding(.trailing)
+                        .padding(.trailing,16)
                     }
                 }
                 
