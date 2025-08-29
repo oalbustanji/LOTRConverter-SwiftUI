@@ -8,14 +8,49 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showExchangeScreen = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Image(.background).resizable().ignoresSafeArea()
+            
+            VStack {
+                Image(.prancingpony).resizable().scaledToFit().frame(height: 200)
+                VStack {
+                    HStack {
+                        HStack {
+                            Image(.silverpiece)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 48)
+                            Text ("Silver Price").foregroundStyle(.white)
+                        }
+                        Image(systemName: "equal")
+                            .foregroundColor(.white)
+                            .font(.largeTitle).symbolEffect(.pulse)
+                        HStack {
+                            Image(.goldpiece)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 48)
+                            Text ("goldpiece").foregroundStyle(.white)
+                        }
+                    }
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button {
+                            showExchangeScreen.toggle()
+                        }label: {
+                            Image(systemName: "info.circle.fill").foregroundColor(.white)
+                                .font(.largeTitle).symbolEffect(.pulse)
+                        }
+                        .padding(.trailing)
+                    }
+                }
+                
+            }
+            .border(.blue)
         }
-        .padding()
     }
 }
 
