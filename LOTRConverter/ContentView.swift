@@ -65,6 +65,10 @@ struct ContentView: View {
                 
             }
             .border(.blue)
+            .sheet(isPresented: $showExchangeScreen) {
+                ExchangeInfo()
+            }
+
         }
     }
 }

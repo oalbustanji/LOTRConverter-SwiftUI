@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ExchangeInfo: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
             Image(.parchment).resizable().ignoresSafeArea()
@@ -33,7 +36,7 @@ struct ExchangeInfo: View {
                     rightImage: .silverpenny
                 )
                 Button("Done") {
-                    
+                    dismiss()
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.brown.mix(with: .black, by: 0.2))
