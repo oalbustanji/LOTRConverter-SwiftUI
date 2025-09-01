@@ -12,7 +12,8 @@ struct ContentView: View {
     @State var showSelectCurrency = false
     @State var leftText = ""
     @State var rightText = ""
-    
+    @State var leftSelectedCurrency: Currency
+    @State var rightSelectedCurrency: Currency
     var body: some View {
         ZStack {
             Image(.background).resizable().ignoresSafeArea()
@@ -23,11 +24,12 @@ struct ContentView: View {
                     HStack {
                         VStack{
                             HStack {
-                                Image(.silverpiece)
+                                Image(leftSelectedCurrency.image)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(height: 48)
-                                Text ("Silver Price").foregroundStyle(.white)
+                                Text (leftSelectedCurrency.name)
+                                    .foregroundStyle(.white)
                             }.onTapGesture {
                                 showSelectCurrency.toggle()
                             }
@@ -40,11 +42,12 @@ struct ContentView: View {
                             .font(.largeTitle).symbolEffect(.pulse)
                         VStack{
                             HStack {
-                                Image(.goldpiece)
+                                Image(rightSelectedCurrency.image)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(height: 48)
-                                Text ("goldpiece").foregroundStyle(.white)
+                                Text (rightSelectedCurrency.name)
+                                    .foregroundStyle(.white)
                             }.onTapGesture {
                                 showSelectCurrency.toggle()
                             }
@@ -77,8 +80,8 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showSelectCurrency) {
                 SelectCurrency(
-                    topSelectedCurrency: .copperPenny,
-                    bottomSelectedCurrency: .goldPenny
+                    topSelectedCurrency: $leftSelectedCurrency,
+                    bottomSelectedCurrency: $rightSelectedCurrency
                 )
             }
 
@@ -87,5 +90,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(
+        leftSelectedCurrency: .copperPenny,
+        rightSelectedCurrency: .goldPenny
+    )
 }
