@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showExchangeScreen = false
+    @State var showSelectCurrency = false
     @State var leftText = ""
     @State var rightText = ""
     
@@ -27,7 +28,10 @@ struct ContentView: View {
                                     .scaledToFit()
                                     .frame(height: 48)
                                 Text ("Silver Price").foregroundStyle(.white)
+                            }.onTapGesture {
+                                showSelectCurrency.toggle()
                             }
+                            
                             TextField("Ammount", text: $leftText)
                                 .textFieldStyle(.roundedBorder)
                         }
@@ -41,7 +45,10 @@ struct ContentView: View {
                                     .scaledToFit()
                                     .frame(height: 48)
                                 Text ("goldpiece").foregroundStyle(.white)
+                            }.onTapGesture {
+                                showSelectCurrency.toggle()
                             }
+
                             TextField("Ammount", text: $rightText)
                                 .textFieldStyle(.roundedBorder)
                                 .multilineTextAlignment(.trailing)
@@ -67,6 +74,12 @@ struct ContentView: View {
             .border(.blue)
             .sheet(isPresented: $showExchangeScreen) {
                 ExchangeInfo()
+            }
+            .sheet(isPresented: $showSelectCurrency) {
+                SelectCurrency(
+                    topSelectedCurrency: .copperPenny,
+                    bottomSelectedCurrency: .goldPenny
+                )
             }
 
         }
