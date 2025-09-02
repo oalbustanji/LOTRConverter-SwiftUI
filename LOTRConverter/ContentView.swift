@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct ContentView: View {
     @State var showExchangeScreen = false
@@ -16,6 +17,8 @@ struct ContentView: View {
     @State var rightSelectedCurrency: Currency
     @FocusState var leftFocus
     @FocusState var rightFocus
+    
+    let currencyTip = CurrencyTip()
     
     var body: some View {
         ZStack {
@@ -35,6 +38,7 @@ struct ContentView: View {
                                     .foregroundStyle(.white)
                             }.onTapGesture {
                                 showSelectCurrency.toggle()
+                                currencyTip.invalidate(reason: .actionPerformed)
                             }
                             .onChange(of: leftSelectedCurrency) {
                                 rightText = leftSelectedCurrency
@@ -79,6 +83,7 @@ struct ContentView: View {
                                         to: leftSelectedCurrency
                                     )
                             }
+                            .popoverTip(currencyTip, arrowEdge: .bottom)
 
                             TextField("Ammount", text: $rightText)
                                 .textFieldStyle(.roundedBorder)
@@ -111,6 +116,9 @@ struct ContentView: View {
                     }
                 }
                 
+            }
+            .task {
+                try? Tips.configure()
             }
             .border(.blue)
             .sheet(isPresented: $showExchangeScreen) {
