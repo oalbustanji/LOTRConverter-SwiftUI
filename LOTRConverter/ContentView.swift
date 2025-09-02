@@ -14,6 +14,9 @@ struct ContentView: View {
     @State var rightText = ""
     @State var leftSelectedCurrency: Currency
     @State var rightSelectedCurrency: Currency
+    @FocusState var leftFocus
+    @FocusState var rightFocus
+    
     var body: some View {
         ZStack {
             Image(.background).resizable().ignoresSafeArea()
@@ -33,9 +36,27 @@ struct ContentView: View {
                             }.onTapGesture {
                                 showSelectCurrency.toggle()
                             }
+                            .onChange(of: leftSelectedCurrency) {
+                                rightText = leftSelectedCurrency
+                                    .convert(
+                                        leftText,
+                                        to: rightSelectedCurrency
+                                    )
+                            }
                             
                             TextField("Ammount", text: $leftText)
                                 .textFieldStyle(.roundedBorder)
+                                .focused($leftFocus)
+                                .onChange(of: leftText) {
+                                    if leftFocus {
+                                        rightText = leftSelectedCurrency
+                                            .convert(
+                                                leftText,
+                                                to: rightSelectedCurrency
+                                            )
+                                    }
+                                }
+                                
                         }
                         Image(systemName: "equal")
                             .foregroundColor(.white)
@@ -51,10 +72,27 @@ struct ContentView: View {
                             }.onTapGesture {
                                 showSelectCurrency.toggle()
                             }
+                            .onChange(of: rightSelectedCurrency) {
+                                leftText = rightSelectedCurrency
+                                    .convert(
+                                        leftText,
+                                        to: leftSelectedCurrency
+                                    )
+                            }
 
                             TextField("Ammount", text: $rightText)
                                 .textFieldStyle(.roundedBorder)
                                 .multilineTextAlignment(.trailing)
+                                .focused($rightFocus)
+                                .onChange(of: rightText) {
+                                    if rightFocus {
+                                        leftText = rightSelectedCurrency
+                                            .convert(
+                                                rightText,
+                                                to: leftSelectedCurrency
+                                            )
+                                    }
+                                }
                         }
                     }
                     .padding()
