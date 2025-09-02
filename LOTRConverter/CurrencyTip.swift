@@ -12,4 +12,5 @@ struct CurrencyTip: Tip {
     
     var image: Image?
     var message: Text? = Text("you can tap the left or right currency to bring up the select curreny screen")
+
 }
